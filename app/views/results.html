@@ -1,0 +1,46 @@
+<br>
+<div class="input-group">
+	<form ng-submit="search()" novalidate name="search_form">
+		<input type="text" 
+		       name="query" 
+		       placeholder="astronomy"
+		       class="text form-control" 
+		       ng-model="searchquery"
+		       required>
+	</form>
+    <span class="input-group-btn">
+        <input type="submit" class="btn btn-default" ng-disabled="search_form.query.$invalid" ng-click="getResults()">
+    </span>
+</div><br>
+
+
+<div class="text-danger" ng-show="search_form.query.$dirty && search_form.query.$invalid">
+    <span ng-show="search_form.query.$error.required">
+        a search term is required
+    </span>
+</div>
+
+<div class="panel panel-default" id="QandA" ng-repeat="result in results">
+    <div class="panel-heading">
+    	{{result.name}}
+    	<i class="glyphicon glyphicon-minus"></i>
+    	{{result.school}}
+    	<i class="glyphicon glyphicon-minus"></i>
+    	{{result.tags}}
+    </div>
+    <div class="panel-body">
+    	<span ng-bind-html="result.question"></span>
+    	<button class="btn btn-default" data-toggle="collapse" data-target="#{{result.$id}}">show answer</button>
+    </div>
+    <ul class="list-group panel-collapse collapse" id="{{result.$id}}">
+        <li class="list-group-item" ng-bind-html="result.answer"></li>
+    </ul>
+</div>
+
+<div class="text-danger" ng-show="results.length === 0 && search_form.query.$dirty">
+	there are no results to show
+</div>
+
+<div class="alert alert-warning" role="alert">
+    If you are redirected to this page without any results, I haven't fixed that bug yet so please bear with me and retype your search!
+</div>

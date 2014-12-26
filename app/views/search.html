@@ -1,0 +1,25 @@
+<center>
+    <h1 class="title">Search for a question</h1>
+</center>
+
+
+<div class="input-group">
+	<form ng-submit="search()" novalidate name="search_form">
+		<input type="text" 
+		       name="query" 
+		       placeholder="astronomy" 
+		       class="text form-control" 
+		       ng-model="searchquery"
+		       required>
+	</form>
+    <span class="input-group-btn">
+        <input type="submit" class="btn btn-default" ng-disabled="search_form.query.$invalid" ng-click="getResults()">
+    </span>
+</div><br>
+
+
+<div class="text-danger" ng-show="search_form.query.$dirty && search_form.query.$invalid">
+    <span ng-show="search_form.query.$error.required">
+        a search term is required
+    </span>
+</div>

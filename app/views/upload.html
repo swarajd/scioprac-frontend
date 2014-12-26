@@ -1,0 +1,105 @@
+<script src="//cdn.ckeditor.com/4.4.6/standard/ckeditor.js" type="text/javascript"></script>
+<script src="bower_components/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="scripts/js/script.js" type="text/javascript"></script>
+
+<h1>Upload a Question here</h1>
+<div class="alert alert-warning" role="alert">
+    Refer to <a ng-href="#/upload/how/" class="alert-link">here</a> for how to write questions
+</div>
+
+<hr>
+
+<form ng-submit="upload()" novalidate name="question_upload">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="enter name here">Name</span>
+                <input type="text" 
+                       class="text form-control" 
+                       placeholder="Swaraj Dhumne" 
+                       name="name"
+                       ng-model="question.name"
+                       ng-minlength="3"
+                       ng-maxlength="20"
+                       required>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="input-group">
+                <span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="enter high school here">High school</span>
+                <input type="text" 
+                       class="text form-control" 
+                       placeholder="Chantilly High School" 
+                       name="school"
+                       ng-model="question.school"
+                       ng-minlength="2"
+                       ng-maxlength="30"
+                       required>
+            </div>
+        </div>
+    </div><br>
+
+    <div class="text-danger" ng-show="question_upload.name.$dirty && question_upload.name.$invalid">
+        <span ng-show="question_upload.name.$error.required">
+            a name is required
+        </span>
+        <span ng-show="question_upload.name.$error.minlength">
+            the name is too short
+        </span>
+        <span ng-show="question_upload.name.$error.maxlength">
+            the name is too long
+        </span>
+    </div>
+
+    <div class="text-danger" ng-show="question_upload.school.$dirty && question_upload.school.$invalid">
+        <span ng-show="question_upload.school.$error.required">
+            a high school name is required
+        </span>
+        <span ng-show="question_upload.school.$error.minlength">
+            the high school name is too short
+        </span>
+        <span ng-show="question_upload.school.$error.maxlength">
+            the high school name is too long
+        </span>
+    </div>
+
+
+    <input type="textarea" class="ckeditor" placeholder="decode this phrase to find a famous phrase: ' BQ QR YORQB '<hr>ET TU BRUTE" 
+           name="question" 
+           id="question"
+           ckeditor
+           ng-model="question.question"
+           question-validate><br>
+
+    <div class="input-group">
+        <span class="input-group-addon"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="enter state of event, type of event, and event name">
+            tags
+        </span>
+        <input type="text"
+               class="text form-control"
+               placeholder="state,regionals/state,event" 
+               name="tags"
+               ng-model="question.tags"
+               tag-validate
+               required>
+
+    </div><br>
+    
+    <div class="text-danger" ng-show="question_upload.tags.$dirty && question_upload.tags.$invalid">
+        <span ng-show="question_upload.tags.$error.tagValidate">
+            not enough tags or too many tags
+        </span>
+    </div>
+
+    <div class="text-danger" ng-show="question_upload.question.$dirty && question_upload.question.$invalid">
+        <span ng-show="question_upload.question.$error.questionValidate">
+            the question was empty or not formatted correctly
+        </span>
+    </div>
+
+    <input type="submit" class="btn btn-default btn-lg" value="Submit" name="submit" ng-disabled="question_upload.$invalid"><br><br>
+
+</form>
